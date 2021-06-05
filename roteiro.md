@@ -4,7 +4,7 @@
 
 2 - CPF/CNPJ e Email devem ser únicos.
 
-3  - Caso ocorra qualquer problema na transação o pode ser devolvido o dinheiro.
+3  - Caso ocorra qualquer problema na transação o dinheiro pode ser devolvido.
 
 4 - Após efetuar uma transação disparar uma notificação (envio de email, sms) enviada por um serviço de terceiro.
 
