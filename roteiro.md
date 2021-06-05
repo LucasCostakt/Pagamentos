@@ -14,16 +14,19 @@
 2 - Cadastro de novos Usuários Lojista e Comuns
 
 
-## Funcionalidades Obrigatórias:
+# Funcionalidades Obrigatórias:
 
-1 - Transação 
+## 1 - Transação 
+
+### Fluxograma da transação
 
 <br>
 
-![transaction](./images/transaction.PNG)
+![transaction](/images/transaction.png)
 <br>
 <br>
 
+### Payload da transação
 
 ```json
 {
@@ -36,15 +39,17 @@
 }
 ```
 
-2 - Estorno 
+## 2 - Solicitação de Estorno 
+
+### Fluxograma de solicitação de estorno
 
 <br>
 
-![reversal](./images/reversal.PNG)
+![reversal](/images/reversal.png)
 <br>
 <br>
 
-
+### Payload da solicitação de estorno
 ```json
 {
 	"transfer_id":"int",
@@ -53,14 +58,17 @@
 }
 ```
 
-3 - Envio de notificação de transferência
+## 3 - Envio de notificação de transferência
+
+### Fluxograma do envio das notificação de tranferência
 
 <br>
 
-![serviceNotification](./images/serviceNotification.PNG)
+![serviceNotification](/images/serviceNotification.png)
 <br>
 <br>
 
+### Payload do Envio de notificação de transferência
 
 ```json
 {
@@ -76,9 +84,20 @@
 ```
 
 
-## Funcionalidades Extras:
+# Funcionalidades Extras:
 
-1 - Cadastro de Novos Usuários
+## 1 - Cadastro de Novos Usuários
+
+### Fluxograma do cadastro de novos usuários
+
+<br>
+
+![users](/images/insertUsers.png)
+
+<br>
+<br>
+
+### Payload do Cadastro de Novos Usuários
 
 ```json 
 {
@@ -90,21 +109,11 @@
 }
 ```
 
-### Fluxograma do cadastro de novos usuários
+## 2 - Depósito (Não implementado)
 
 <br>
 
-![users](./images/insertUsers.PNG)
-
-<br>
-<br>
-
-
-2 - Depósito 
-
-<br>
-
-
+### Payload do Depósito
 ```json
 {
 "value":"float",
@@ -118,7 +127,7 @@
 
 <br>
 
-![microsservices](./images/microsservices.PNG)
+![microsservices](/images/microsservices.png)
 
 <br>
 <br>
