@@ -20,7 +20,7 @@
 
 <br>
 
-![transaction](images/transaction.PNG)
+![transaction](./images/transaction.PNG)
 <br>
 <br>
 
@@ -40,7 +40,7 @@
 
 <br>
 
-![reversal](images/reversal.PNG)
+![reversal](./images/reversal.PNG)
 <br>
 <br>
 
@@ -57,7 +57,7 @@
 
 <br>
 
-![serviceNotification](images/serviceNotification.PNG)
+![serviceNotification](./images/serviceNotification.PNG)
 <br>
 <br>
 
@@ -94,7 +94,7 @@
 
 <br>
 
-![users](images/insertUsers.PNG)
+![users](./images/insertUsers.PNG)
 
 <br>
 <br>
@@ -118,7 +118,7 @@
 
 <br>
 
-![microsservices](images/microsservices.PNG)
+![microsservices](./images/microsservices.PNG)
 
 <br>
 <br>
