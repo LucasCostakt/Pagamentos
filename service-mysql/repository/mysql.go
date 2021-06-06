@@ -73,8 +73,8 @@ func (tx *repo) CreateSchema() error {
 	return nil
 }
 
-func (tx *repo) CreateTransationTable() error {
-	query := `CREATE TABLE IF NOT EXISTS mydb.transation (
+func (tx *repo) CreateTransactionTable() error {
+	query := `CREATE TABLE IF NOT EXISTS mydb.transaction (
 		id INT NOT NULL AUTO_INCREMENT,
 		value FLOAT NOT NULL,
 		payer INT NOT NULL,
@@ -83,14 +83,14 @@ func (tx *repo) CreateTransationTable() error {
 		createdate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		updatedate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 		PRIMARY KEY (id),
-		INDEX fk_transation_users1_idx (payer ASC) ,
-		INDEX fk_transation_users2_idx (payee ASC) ,
-		CONSTRAINT fk_transation_users1
+		INDEX fk_transaction_users1_idx (payer ASC) ,
+		INDEX fk_transaction_users2_idx (payee ASC) ,
+		CONSTRAINT fk_transaction_users1
 		  FOREIGN KEY (payer)
 		  REFERENCES mydb.users (id)
 		  ON DELETE NO ACTION
 		  ON UPDATE NO ACTION,
-		CONSTRAINT fk_transation_users2
+		CONSTRAINT fk_transaction_users2
 		  FOREIGN KEY (payee)
 		  REFERENCES mydb.users (id)
 		  ON DELETE NO ACTION
@@ -107,18 +107,18 @@ func (tx *repo) CreateTransationTable() error {
 func (tx *repo) CreateReversalTable() error {
 	query := `CREATE TABLE IF NOT EXISTS mydb.reversal (
 		id INT NOT NULL AUTO_INCREMENT,
-		transation_id INT NOT NULL,
+		transaction_id INT NOT NULL,
 		payer INT NOT NULL,
 		payee INT NOT NULL,
 		createdate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		updatedate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 		PRIMARY KEY (id),
-		INDEX fk_reversal_transation1_idx (transation_id ASC) ,
+		INDEX fk_reversal_transaction1_idx (transaction_id ASC) ,
 		INDEX fk_reversal_users1_idx (payer ASC) ,
 		INDEX fk_reversal_users2_idx (payee ASC) ,
-		CONSTRAINT fk_reversal_transation1
-		  FOREIGN KEY (transation_id)
-		  REFERENCES mydb.transation (id)
+		CONSTRAINT fk_reversal_transaction1
+		  FOREIGN KEY (transaction_id)
+		  REFERENCES mydb.transaction (id)
 		  ON DELETE NO ACTION
 		  ON UPDATE NO ACTION,
 		CONSTRAINT fk_reversal_users1

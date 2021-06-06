@@ -72,9 +72,9 @@ func main() {
 		log.Println("Error CreateUserTable() ", err)
 		return
 	}
-	err = repo.CreateTransationTable()
+	err = repo.CreateTransactionTable()
 	if err != nil {
-		log.Println("Error CreateTransationTable() ", err)
+		log.Println("Error CreateTransactionTable() ", err)
 		return
 	}
 	err = repo.CreateReversalTable()
