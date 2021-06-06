@@ -131,3 +131,12 @@
 
 <br>
 <br>
+
+## Modelagem do banco de dados
+
+<br>
+
+![mysql](images/model.png)
+
+<br>
+<br>
