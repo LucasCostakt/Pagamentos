@@ -22,7 +22,7 @@
 
 <br>
 
-![transaction](/images/transaction.png)
+![transaction](images/transaction.png)
 <br>
 <br>
 
@@ -45,7 +45,7 @@
 
 <br>
 
-![reversal](/images/reversal.png)
+![reversal](images/reversal.png)
 <br>
 <br>
 
@@ -64,7 +64,7 @@
 
 <br>
 
-![serviceNotification](/images/serviceNotification.png)
+![serviceNotification](images/serviceNotification.png)
 <br>
 <br>
 
@@ -92,7 +92,7 @@
 
 <br>
 
-![users](/images/insertUsers.png)
+![users](images/insertUsers.png)
 
 <br>
 <br>
@@ -127,7 +127,7 @@
 
 <br>
 
-![microsservices](/images/microsservices.png)
+![microsservices](images/microsservices.png)
 
 <br>
 <br>
