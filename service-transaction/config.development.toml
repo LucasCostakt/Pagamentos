@@ -1,0 +1,14 @@
+[environment]
+name = "development"
+
+[database]
+sql_host = "mysql:3306"
+sql_dbname = "mydb"
+sql_username = "root"
+sql_password = "admin"
+
+[http]
+http_host = "172.28.1.5"
+http_port = "5052"
+api_check = "https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6"
+send_notification = "http://172.28.1.5:5053/"
