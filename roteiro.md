@@ -52,9 +52,9 @@
 ### Payload da solicitação de estorno
 ```json
 {
+	"user_id":"intt"
 	"transfer_id":"int",
-	"payer":"int",
-	"payee":"int"
+	"password":"string"
 }
 ```
 
