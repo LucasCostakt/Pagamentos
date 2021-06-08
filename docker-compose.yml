@@ -1,0 +1,62 @@
+version: "3.3"
+services:
+  # mysql:
+  #   image: "mysql:5.7"
+  #   container_name: mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: admin
+  #   volumes:
+  #     - mysql-data:/var/lib/mysql
+  #   ports:
+  #     - "3306:3306"
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: unless-stopped
+  #   networks:
+  #     testing_net:
+  #       ipv4_address: 172.28.1.1
+
+  serviceusers:
+    build: ./service-users
+    ports:
+      - "5050:5050"
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.2
+    
+  servicetransaction:
+    build: ./service-transaction
+    ports:
+      - "5052:5052"
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.4
+
+  servicenotification:
+    build: ./service-notification
+    ports:
+      - "5053:5053"
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.5
+
+  servicemysql:
+    build: ./service-mysql
+    ports:
+      - "6000:6000"
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.6
+    depends_on: 
+      - "mysql"
+    
+volumes:
+  mysql-data:
+    driver: local
+
+networks:
+  testing_net:
+    ipam:
+      driver: default
+      config: 
+        - subnet: 172.28.0.0/16
+      
