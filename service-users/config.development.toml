@@ -1,0 +1,12 @@
+[environment]
+name = "development"
+
+[database]
+sql_host = "mysql:3306"
+sql_dbname = "mydb"
+sql_username = "root"
+sql_password = "admin"
+
+[http]
+http_host = "172.28.1.2"
+http_port = "5050"
