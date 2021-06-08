@@ -1,0 +1,7 @@
+[environment]
+name = "development"
+
+[http]
+http_host = "172.28.1.6"
+http_port = "5053"
+api_notify = "http://o4d9z.mocklab.io/notify"
