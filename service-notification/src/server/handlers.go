@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func (s *Server) TesteLogica(w http.ResponseWriter, r *http.Request) {
+func (s *Server) SendNotification(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case http.MethodPost:
@@ -24,7 +24,7 @@ func (s *Server) TesteLogica(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(message))
 
 	default:
-		w.WriteHeader(http.StatusNotFound)
+		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
 
 }

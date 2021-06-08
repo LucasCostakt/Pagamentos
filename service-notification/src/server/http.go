@@ -17,7 +17,7 @@ func (h *httpServer) NewRoutes(serv src.ServerList) {
 	router := http.NewServeMux()
 
 	//Create the endpoins
-	router.Handle("/", http.HandlerFunc(serv.TesteLogica))
+	router.Handle("/", http.HandlerFunc(serv.SendNotification))
 
 	h.Handler = router
 }
