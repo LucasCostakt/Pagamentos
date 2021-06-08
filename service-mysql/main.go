@@ -29,7 +29,9 @@ func main() {
 		log.Printf("Error %s when opening DB\n", err)
 		return
 	}
-	defer db.Close()
+	// defer db.Close()
+
+	log.Println(dsn(dbname))
 
 	ctx, cancelfunc := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancelfunc()

@@ -22,7 +22,7 @@ func (tx *repo) CreateUserTable() error {
 	query := `CREATE TABLE IF NOT EXISTS mydb.users (
 	  id INT NOT NULL AUTO_INCREMENT,
 	  name VARCHAR(255) NOT NULL,
-	  cpf_cpnj VARCHAR(255) NOT NULL,
+	  cpf_cnpj VARCHAR(255) NOT NULL,
 	  email VARCHAR(255) NOT NULL,
 	  password VARCHAR(255) NOT NULL,
 	  type INT NOT NULL,
@@ -161,21 +161,21 @@ func (tx *repo) CreateUsersTypes() error {
 
 //Create users test
 func (tx *repo) CreateUsers() error {
-	query := []string{`INSERT INTO mydb.users (id, name, cpf_cpnj, email, password, type, balance)
+	query := []string{`INSERT INTO mydb.users (id, name, cpf_cnpj, email, password, type, balance)
 	SELECT * FROM (SELECT 3, 'Tim Maia', '09228574070', 'timmaia@gmail.com', '12345', 1, 5000) AS tmp
-	WHERE NOT EXISTS (SELECT cpf_cpnj, email FROM mydb.users  WHERE cpf_cpnj = '09228574070' or email = 'timmaia@gmail.com') LIMIT 1;`,
+	WHERE NOT EXISTS (SELECT cpf_cnpj, email FROM mydb.users  WHERE cpf_cnpj = '09228574070' or email = 'timmaia@gmail.com') LIMIT 1;`,
 
-		`INSERT INTO mydb.users  (id, name, cpf_cpnj, email, password, type, balance)
+		`INSERT INTO mydb.users  (id, name, cpf_cnpj, email, password, type, balance)
 	SELECT * FROM (SELECT 2, 'Darth Vader', '05593744025', 'darthvader@gmail.com', '12345', 1, 0) AS tmp
-	WHERE NOT EXISTS (SELECT cpf_cpnj, email FROM mydb.users  WHERE cpf_cpnj = '05593744025' or email = 'darthvader@gmail.com') LIMIT 1;`,
+	WHERE NOT EXISTS (SELECT cpf_cnpj, email FROM mydb.users  WHERE cpf_cnpj = '05593744025' or email = 'darthvader@gmail.com') LIMIT 1;`,
 
-		`INSERT INTO mydb.users (id, name, cpf_cpnj, email, password, type, balance)
+		`INSERT INTO mydb.users (id, name, cpf_cnpj, email, password, type, balance)
 	SELECT * FROM (SELECT 1, 'R2 D2', '61915727000193', 'r2d2@gmail.com', '12345', 2, 1000) AS tmp
-	WHERE NOT EXISTS (SELECT cpf_cpnj, email FROM mydb.users  WHERE cpf_cpnj = '61915727000193' or email = 'r2d2@gmail.com') LIMIT 1;`,
+	WHERE NOT EXISTS (SELECT cpf_cnpj, email FROM mydb.users  WHERE cpf_cnpj = '61915727000193' or email = 'r2d2@gmail.com') LIMIT 1;`,
 
-		`INSERT INTO mydb.users (id, name, cpf_cpnj, email, password, type, balance)
+		`INSERT INTO mydb.users (id, name, cpf_cnpj, email, password, type, balance)
 	SELECT * FROM (SELECT 4, 'NGolo Kanté', '92531761000198', 'kante@gmail.com', '12345', 2, 500) AS tmp
-	WHERE NOT EXISTS (SELECT cpf_cpnj, email FROM mydb.users  WHERE cpf_cpnj = '92531761000198' or email = 'kante@gmail.com') LIMIT 1;`}
+	WHERE NOT EXISTS (SELECT cpf_cnpj, email FROM mydb.users  WHERE cpf_cnpj = '92531761000198' or email = 'kante@gmail.com') LIMIT 1;`}
 
 	for _, q := range query {
 		err := tx.executeInsert(q)
