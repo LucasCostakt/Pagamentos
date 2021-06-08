@@ -7,7 +7,7 @@ import (
 	"log"
 	"time"
 
-	"service-mysql/repository"
+	"service-mocks/repository"
 
 	_ "github.com/go-sql-driver/mysql"
 )

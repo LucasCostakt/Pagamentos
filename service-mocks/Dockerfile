@@ -19,8 +19,8 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o servicemysql
+RUN go build -o servicemocks
 
-CMD ./servicemysql
+CMD ./servicemocks
 
 EXPOSE 6000

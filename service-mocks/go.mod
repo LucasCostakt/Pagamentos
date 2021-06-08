@@ -1,4 +1,4 @@
-module service-mysql
+module service-mocks
 
 go 1.16
 

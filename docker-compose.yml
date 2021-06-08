@@ -1,19 +1,19 @@
 version: "3.3"
 services:
-  # mysql:
-  #   image: "mysql:5.7"
-  #   container_name: mysql
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: admin
-  #   volumes:
-  #     - mysql-data:/var/lib/mysql
-  #   ports:
-  #     - "3306:3306"
-  #   command: --default-authentication-plugin=mysql_native_password
-  #   restart: unless-stopped
-  #   networks:
-  #     testing_net:
-  #       ipv4_address: 172.28.1.1
+  mysql:
+    image: "mysql:5.7"
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.1
 
   serviceusers:
     build: ./service-users
@@ -39,8 +39,8 @@ services:
       testing_net:
         ipv4_address: 172.28.1.5
 
-  servicemysql:
-    build: ./service-mysql
+  servicemocks:
+    build: ./service-mocks
     ports:
       - "6000:6000"
     networks:
