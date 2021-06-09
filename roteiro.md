@@ -52,7 +52,7 @@
 ### Payload da solicitação de estorno
 ```json
 {
-	"user_id":"intt"
+	"user_id":"int",
 	"transfer_id":"int",
 	"password":"string"
 }
@@ -132,7 +132,24 @@
 <br>
 <br>
 
+## Comunicação entre os serviços
+
+<br>
+
+![ms_comunication](images/ms_comunication.png)
+
+<br>
+<br>
+
 ## Modelagem do banco de dados
+
+- ``users``: tabela referente a registros dos usuários;
+
+- ``userstype``: tabela contendo os tipos de usuários, sendo eles, comuns ou lojistas;
+
+- ``transaction``: armazena os registro de todas as transções que foram efetuadas com sucesso;
+
+- ``reversal``: armazena os registro de todos os estornos realizados.
 
 <br>
 
