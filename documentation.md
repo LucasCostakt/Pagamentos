@@ -1,7 +1,7 @@
 
 # Documentação
 
-Essa documentação vai servir para guiar a instalação, como usar a aplicação, revisar os testes e disponibilizar um melhor intendimento de todas as partes do projeto
+Documentação com os guias de instalação, como executar a aplicação, execução dos testes unitários e disponibilizar um melhor entendimento de todas as partes do projeto
 
 ## Tópicos
 
@@ -9,22 +9,7 @@ Essa documentação vai servir para guiar a instalação, como usar a aplicaçã
 
 - Add more integrations
 
-  
-## Rodar o Projeto
-
-Clonar
-
-```bash
-  git clone https://github.com/LucasCostakt/Pagamentos.git
-```
-
-Vá para pasta do projeto
-
-```bash
-  cd Pagamentos
-```
-
-Tenha instalado
+## Requesitos necessários para utilizar o projeto
 
 ```bash
   docker
@@ -32,8 +17,23 @@ Tenha instalado
   go
   mysql
 ```
+  
+## Executar o Projeto
 
-Na pasta pagamentos rode o comando
+1- Clonar
+
+```bash
+  git clone https://github.com/LucasCostakt/Pagamentos.git
+```
+
+2- Vá para pasta do projeto
+
+```bash
+  cd Pagamentos
+```
+
+
+3- Na pasta pagamentos rode o comando
 
 ```bash
 docker-compose up
@@ -43,7 +43,7 @@ docker-compose up
 Observação: confira se foi criado corretamente as tabelas e o mock 
 de dados no mysql, caso não tenha sido rode 
 novamente o container `servicemocks`
-## Tests
+## Testes
 
 Para rodar os testes entre na pasta `service-transaction`
 
@@ -64,7 +64,7 @@ Ou o comando
 ```
 
   
-## API Reference
+## Referência para a API
 
 #### Get all items
 
