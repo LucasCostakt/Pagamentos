@@ -17,7 +17,7 @@ func (h *httpServer) NewRoutes(serv src.ServerList) {
 	router := http.NewServeMux()
 
 	//Create the endpoins
-	router.Handle("/", http.HandlerFunc(serv.InsertNewUser))
+	router.Handle("/insert", http.HandlerFunc(serv.InsertNewUser))
 
 	h.Handler = router
 }
