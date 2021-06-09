@@ -20,4 +20,10 @@ dos serviços, desde a instalação, execução do projeto até
 o que cada endpoint faz, a documentção está disponível no
 [Link para Documentção](https://github.com/LucasCostakt/Pagamentos/blob/master/documentation.md)
 
+## Tecnologias do Projeto
+
+**Backend:** Golang e Docker
+
+**Banco de dados:** Mysql
+
   
