@@ -192,12 +192,29 @@ Retorno
 
 <br>
   
-## Variáveis de Environment
+## Variáveis de ambiente
 
-To run this project, you will need to add the following environment variables to your .env file
+Para executar este projeto, você precisará adicionar as seguintes variáveis ​​de ambiente ao seu arquivo .toml
 
-`API_KEY`
+[environment]
 
-`ANOTHER_API_KEY`
+`name` : Nome do ambiente de execução
+
+[database]
+
+`sql_host` : nome do host do mysql
+
+`sql_dbname` : nome da base de dados a ser utilizada
+
+`sql_username`  : nome de usuário
+
+`sql_password`  : senha para o acesso ao banco de dados
+
+[http]
+
+`http_host` : url a ser utilizada pelo serviço, nesse caso está setada como localhost
+
+`http_port` : porta a ser utilizada pelo serviço
+
 
   
