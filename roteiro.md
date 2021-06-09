@@ -166,3 +166,5 @@
 - Implementar os testes para o serviços de: users e sendnotification.
 
 - A chamada da api externa para envio de notificação demora bastante, e isso atrasa um pouco a transação, modificar o fluxo para que essa chamada fique sendo feita separada (através de um goroutine), para que o retorno seja mais rápido.
+
+- Utilização de middlewares
