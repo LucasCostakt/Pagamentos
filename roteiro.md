@@ -9,10 +9,9 @@
 4 - Após efetuar uma transação disparar uma notificação (envio de email, sms) enviada por um serviço de terceiro.
 
 ## Extras:
-1 - Poder depositar valores 
+1 - Cadastro de novos Usuários Lojista e Comuns
 
-2 - Cadastro de novos Usuários Lojista e Comuns
-
+2 - Poder depositar valores 
 
 # Funcionalidades Obrigatórias:
 
@@ -157,3 +156,13 @@
 
 <br>
 <br>
+
+## Futuras melhorias
+
+- Implementar a api getway.
+
+- Implementar Serviço de deposito de valores.
+
+- Implementar os testes para o serviços de: users e sendnotification.
+
+- A chamada da api externa para envio de notificação demora bastante, e isso atrasa um pouco a transação, modificar o fluxo para que essa chamada fique sendo feita separada (através de um goroutine), para que o retorno seja mais rápido.
