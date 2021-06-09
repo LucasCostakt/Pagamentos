@@ -29,8 +29,6 @@ func OpenConnection() (*sql.DB, error) {
 	db.SetMaxIdleConns(20)
 	db.SetConnMaxLifetime(time.Minute * 5)
 
-	log.Printf("Connected to DB %s successfully\n", config.C.GetString("database.sql_dbname"))
-
 	return db, nil
 }
 

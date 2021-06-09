@@ -83,7 +83,7 @@ func (s *Service) CheckPassword(id int, pass string) (int, error) {
 			return http.StatusInternalServerError, errors.New("erro no banco de dados")
 		}
 		if count < 1 {
-			return http.StatusUnauthorized, errors.New("senha incorreta")
+			return http.StatusUnauthorized, errors.New("senha ou usuário incorretos")
 		}
 	}
 
@@ -94,6 +94,7 @@ func (s *Service) CheckUserType(id int) (int, error) {
 
 	var query strings.Builder
 	var types int
+	var controller int
 
 	fmt.Fprintf(&query, `SELECT type FROM mydb.users where id = %d;`, id)
 
@@ -104,6 +105,7 @@ func (s *Service) CheckUserType(id int) (int, error) {
 	}
 
 	for rows.Next() {
+		controller++
 		err := rows.Scan(&types)
 		if err != nil {
 			log.Println(fmt.Errorf("CheckUserType rows.Scan(): %w", err))
@@ -113,6 +115,9 @@ func (s *Service) CheckUserType(id int) (int, error) {
 			return http.StatusForbidden, errors.New("permissão negada para realizar transferências")
 		}
 	}
+	if controller == 0 {
+		return http.StatusForbidden, errors.New("usuário não encontrado")
+	}
 
 	return http.StatusOK, nil
 }
@@ -121,6 +126,7 @@ func (s *Service) CheckSufficientBalance(id int, value float64) (int, float64, e
 
 	var query strings.Builder
 	var balance, nextBalance float64
+	var controller int
 
 	fmt.Fprintf(&query, `SELECT balance FROM mydb.users where id = %d;`, id)
 
@@ -131,6 +137,7 @@ func (s *Service) CheckSufficientBalance(id int, value float64) (int, float64, e
 	}
 
 	for rows.Next() {
+		controller++
 		err := rows.Scan(&balance)
 		if err != nil {
 			log.Println(fmt.Errorf("CheckSufficientBalance rows.Scan(): %w", err))
@@ -140,6 +147,10 @@ func (s *Service) CheckSufficientBalance(id int, value float64) (int, float64, e
 		if nextBalance < 0 {
 			return http.StatusForbidden, 0, errors.New("saldo insuficiente")
 		}
+	}
+
+	if controller == 0 {
+		return http.StatusForbidden, 0, errors.New("usuário não encontrado")
 	}
 
 	return http.StatusOK, nextBalance, nil
@@ -159,7 +170,7 @@ func (s *Service) CheckApiResponse() (int, error) {
 	req.Header.Set("Content-Type", "application/json")
 	response, err := client.Do(req)
 	if err != nil {
-		log.Println("CheckApiResponse NewRequest() %w", err)
+		log.Println("CheckApiResponse client.Do %w", err)
 		return http.StatusInternalServerError, errors.New("erro da requisição externa")
 	}
 
@@ -182,7 +193,11 @@ func (s *Service) CheckApiResponse() (int, error) {
 	return http.StatusOK, nil
 }
 
-func (s *Service) ExecuteTransaction(value, nextBalance float64, payer, payee, types int, transferTime, endDateReversal time.Time) (int, int, error) {
+func (s *Service) ExecuteTransaction(value, nextBalance float64, payer, payee, transactionType int, transferTime, endDateReversal time.Time) (int, int, error) {
+
+	if payer == payee {
+		return http.StatusForbidden, 0, errors.New("usuários iguas")
+	}
 
 	var res sql.Result
 	var err error
@@ -192,13 +207,13 @@ func (s *Service) ExecuteTransaction(value, nextBalance float64, payer, payee, t
 	ed := endDateReversal.Format(MySQLTimeFormat)
 
 	var query strings.Builder
-	if types == 1 {
+	if transactionType == 1 {
 		fmt.Fprintf(&query, `INSERT INTO mydb.transaction (value, payer, payee, end_reversal_date, createdate, updatedate) VALUES (%f, %d, %d, '%s', '%s', '%s');`,
 			value, payer, payee, ed, tt, tt)
 
 		res, err = s.Repository.Insert(query.String())
 		if err != nil {
-			log.Println(fmt.Errorf("ExecuteTransaction Select(): %w", err))
+			log.Println(fmt.Errorf("ExecuteTransaction Insert(): %w", err))
 			return http.StatusInternalServerError, 0, errors.New("erro no banco de dados")
 		}
 	}
@@ -222,7 +237,7 @@ func (s *Service) ExecuteTransaction(value, nextBalance float64, payer, payee, t
 		log.Println(fmt.Errorf("ExecuteTransaction Insert(): %w", err))
 		return http.StatusInternalServerError, 0, errors.New("erro no banco de dados")
 	}
-	if types == 1 {
+	if transactionType == 1 {
 		transferID, err = res.LastInsertId()
 		if err != nil {
 			log.Println(fmt.Errorf("ExecuteTransaction LastInsertId(): %w", err))
@@ -235,6 +250,7 @@ func (s *Service) ExecuteTransaction(value, nextBalance float64, payer, payee, t
 func (s *Service) SendNotification(transferID int) (int, error) {
 	client := http.Client{}
 	send := &Notification{}
+	var controller int
 
 	var query strings.Builder
 
@@ -252,11 +268,16 @@ func (s *Service) SendNotification(transferID int) (int, error) {
 	}
 
 	for rows.Next() {
+		controller++
 		err := rows.Scan(&send.Value, &send.Email_payee, &send.Payee_id, &send.Payee_name, &send.Email_payer, &send.Payer_id, &send.Payer_name, &send.Transfer_time)
 		if err != nil {
 			log.Println(fmt.Errorf("SendNotification rows.Scan(): %w", err))
 			return http.StatusInternalServerError, errors.New("erro no banco de dados")
 		}
+	}
+
+	if controller == 0 {
+		return http.StatusForbidden, errors.New("transferencia não encontrada")
 	}
 
 	js, err := json.Marshal(send)
@@ -300,6 +321,7 @@ func SetData() (t, t2 time.Time) {
 func GetTranferParams(id int, s *Service) (int, *Reversal, error) {
 
 	var query strings.Builder
+	var controller int
 
 	rs := &Reversal{}
 
@@ -312,11 +334,15 @@ func GetTranferParams(id int, s *Service) (int, *Reversal, error) {
 	}
 
 	for rows.Next() {
+		controller++
 		err := rows.Scan(&rs.Value, &rs.Payee, &rs.Payer)
 		if err != nil {
 			log.Println(fmt.Errorf("GetTranferParams rows.Scan(): %w", err))
 			return http.StatusInternalServerError, nil, errors.New("erro no banco de dados")
 		}
+	}
+	if controller == 0 {
+		return http.StatusForbidden, nil, errors.New("transferencia não encontrado")
 	}
 
 	return http.StatusOK, rs, nil
@@ -351,13 +377,17 @@ func (s *Service) CheckTransferEfetue(id int) (int, error) {
 
 func (s *Service) ExecuteReversal(transactionID, payer, payee int) (int, error) {
 
+	if payer == payee {
+		return http.StatusForbidden, errors.New("usuários iguas")
+	}
+
 	var query strings.Builder
 
 	fmt.Fprintf(&query, `INSERT INTO mydb.reversal (transaction_id, payer, payee) VALUES (%d, %d, %d);`, transactionID, payer, payee)
 
 	_, err := s.Repository.Insert(query.String())
 	if err != nil {
-		log.Println(fmt.Errorf("ExecuteReversal Select(): %w", err))
+		log.Println(fmt.Errorf("ExecuteReversal Insert(): %w", err))
 		return http.StatusInternalServerError, errors.New("erro no banco de dados")
 	}
 

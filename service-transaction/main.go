@@ -12,7 +12,10 @@ func main() {
 	config.LoadConfig("development")
 	log.Println("Create new httpServer")
 	http := server.NewServer()
-	conn, _ := repository.OpenConnection()
+	conn, err := repository.OpenConnection()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	serv := server.NewServerList(service.NewService(repository.NewRepository(conn)))
 
